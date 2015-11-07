@@ -12,6 +12,9 @@ south, s
 east, e
  "go east"
 
+left, l
+ "go left"
+
 west, w
  "go west"
 
@@ -41,7 +44,7 @@ close _, lock _
 
 knock _
 
-quit, exit
+quit
  "quit"
 
 look, show
@@ -56,6 +59,14 @@ save
 
 load
 
+cry, sob
+ "cry"
+
+exit
+ "exit"
+
+die
+ "die"
 
 ===EVERYWHERE===
 
@@ -79,8 +90,23 @@ load
 help
  (show-help)
 
+cry
+ (begin
+   (printf "You lay down on the ground and cry becasue this is just too much.\n"))
+
+exit
+ (begin
+   (printf "You go outside. It is snowing. You can't see. It's very cold.\n"))
+
+die
+ (begin
+   (displayln "exiting")
+   (exit))
+
 
 ===THINGS===
+
+
 
 ---cactus---
 get
@@ -128,16 +154,84 @@ get
 
 ===PLACES===
 
----meadow---
-"You're standing in a meadow. There is a house to the north."
+---Outside---
+"You go outside. It is snowing. You can't see. It's very cold."
 []
 
 north
- house-front
+ death
 
 south
- desert
+ death
 
+west
+ death
+
+in
+ Hallway-level-1-4
+
+---Rekhi-112---
+"You're standing in Rekhi 112."
+[]
+
+out
+ Hallway-level-1-1
+
+---death---
+"You died"
+[]
+
+---Rekhi-101---
+"You've entered Rekhi 101."
+[]
+
+out
+ Hallway-level-1-3
+
+---Hallway-level-1-1---
+"You're in the hallway."
+[]
+
+left
+ Hallway-level-1-3
+
+in
+ Rekhi-112
+
+---Rekhi-113---
+"You're in Rekhi 113"
+[]
+
+out
+ Hallway-level-1-2
+
+---CSLC---
+"You're in the CSLC. The queue is full. Everyone needs help. Run."
+[]
+
+out
+ Hallway-level-1-2
+
+---Hallway-level-1-2---
+"You're standing in the middle of the hallway."
+[]
+
+in
+ CSLC
+
+---Hallway-level-1-3---
+"You're in the hallway. The floor is sticky."
+[]
+
+in
+ Rekhi-101
+
+---Hallway-level-1-4---
+"You're in the hallway. It's cold. It's always cold"
+[]
+
+exit
+ Outside
 
 ---house-front---
 "You are standing in front of a house."
@@ -149,7 +243,7 @@ in
       "The door is not open.")
 
 south
-  meadow
+  Rekhi-112
 
 
 ---desert---
@@ -157,7 +251,7 @@ south
 [cactus, key]
 
 north
-  meadow
+  Rekhi-112
 
 south
   desert

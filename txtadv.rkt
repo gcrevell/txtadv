@@ -332,6 +332,9 @@
              [(thing? v) (set-thing-state! v state)])))
         (caddr v))))))
 
+;;(define cry
+  ;;(printf "You lay down on the ground and cry becasue this is just too much"))
+
 ;; ============================================================
 ;; To go:
 
