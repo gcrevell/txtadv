@@ -173,6 +173,8 @@
 ;; Show the current place:
 (define (show-current-place)
   (printf "~a\n" (place-desc current-place))
+  ;(displayln (place-desc current-place))
+  (cond [(string=? (place-desc current-place) "You died") (exit)])
   (for-each (lambda (thing)
               (printf "There is a ~a here.\n" (thing-name thing)))
             (place-things current-place)))

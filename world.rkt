@@ -12,11 +12,17 @@ south, s
 east, e
  "go east"
 
+west, w
+ "go west"
+
 left, l
  "go left"
 
-west, w
- "go west"
+right, r
+ "go right"
+
+back
+ "go back"
 
 up
  "go up"
@@ -154,6 +160,13 @@ get
 
 ===PLACES===
 
+---Rekhi-112---
+"You're standing in Rekhi 112."
+[]
+
+out
+ Hallway-level-1-1
+
 ---Outside---
 "You go outside. It is snowing. You can't see. It's very cold."
 []
@@ -164,32 +177,29 @@ north
 south
  death
 
+east
+ death
+
 west
  death
 
 in
  Hallway-level-1-4
 
----Rekhi-112---
-"You're standing in Rekhi 112."
-[]
-
-out
- Hallway-level-1-1
-
 ---death---
 "You died"
 []
 
+
 ---Rekhi-101---
-"You've entered Rekhi 101."
+"You've entered Rekhi 101. Theres nothing here. Why do we even have this room?"
 []
 
 out
  Hallway-level-1-3
 
 ---Hallway-level-1-1---
-"You're in the hallway."
+"You're in the hallway, facing the wall. It's blank."
 []
 
 left
@@ -197,6 +207,9 @@ left
 
 in
  Rekhi-112
+
+right
+ Hallway-level-1-2
 
 ---Rekhi-113---
 "You're in Rekhi 113"
@@ -213,25 +226,47 @@ out
  Hallway-level-1-2
 
 ---Hallway-level-1-2---
-"You're standing in the middle of the hallway."
+"You're standing in the middle of the hallway. The CSLC is in front of you. Why don't you go in?"
 []
 
 in
  CSLC
 
+right
+ Hallway-level-1-1
+
 ---Hallway-level-1-3---
-"You're in the hallway. The floor is sticky."
+"You're in the hallway, facing the room 101. The floor is sticky."
 []
 
 in
  Rekhi-101
 
+left
+ Hallway-level-1-4
+
 ---Hallway-level-1-4---
-"You're in the hallway. It's cold. It's always cold"
+"You're in the hallway, next to the stairs and exit. It's cold. It's always cold"
 []
 
 exit
  Outside
+
+out
+ Outside
+
+in
+ Stairway-level-1-1
+
+back
+ Hallway-level-1-3
+
+---Stairway-level-1-1---
+"You're in the stairway. You know how to climb stairs, right?"
+[]
+
+out
+ Hallway-level-1-4
 
 ---house-front---
 "You are standing in front of a house."
