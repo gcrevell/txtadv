@@ -130,6 +130,7 @@
 
 (define (read-place src in)
   (define name (read-defn-name src in "place"))
+  
   (skip-whitespace in)
   (define desc (if (regexp-match-peek #rx"^\"" in)
                    (read-syntax src in)

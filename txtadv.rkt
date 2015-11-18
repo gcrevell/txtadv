@@ -142,6 +142,15 @@
 ;; ============================================================
 ;; Game state
 
+(printf "Picture this! The world, in like 4 days.\n")
+(printf "The Sun has left us. There is no light left.\n")
+(printf "Snow falls constantly. There's so much. it's everywhere...\n")
+(printf "Humanity has lost all hope.\n")
+(printf "We survive, in small bands. Barely hanging on to life.\n")
+(printf "You are stuck in Rekhi.\n")
+(printf "You are given a quest, to log in to the computer.\n")
+(printf "Good luck.\n\n\n")
+
 ;; Initialized on startup:
 (define all-verbs null)          ; list of verbs
 (define everywhere-actions null) ; list of verb--thunk pairs

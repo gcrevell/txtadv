@@ -24,6 +24,9 @@ right, r
 back
  "go back"
 
+forward
+ "go forward"
+
 up
  "go up"
 
@@ -100,9 +103,7 @@ cry
  (begin
    (printf "You lay down on the ground and cry becasue this is just too much.\n"))
 
-exit
- (begin
-   (printf "You go outside. It is snowing. You can't see. It's very cold.\n"))
+
 
 die
  (begin
@@ -112,7 +113,42 @@ die
 
 ===THINGS===
 
+---flashdrive---
 
+get
+ (if (and
+      (have-thing? backpack)
+      (have-thing? good-cry-in-Leos-office))
+     (begin
+       (take-thing! flashdrive)
+       "You now have the flashdrive. You hold all of humanity's hopes and dreams in your hand.")
+     (begin (if (have-thing? backpack)
+                "Leo won't let you take the flashdrive yet. Maybe make him feel awkward? Cry or beg or something."
+                (begin (if (have-thing? good-cry-in-Leos-office)
+                           "You need something to store the flashdrive in safely"
+                           "You've done nothing for this game. Good luck.")))))
+
+
+---good-cry-in-Leos-office---
+
+
+---backpack---
+get
+ (if (have-thing? backpack)
+     "You already have the backpack."
+      (begin
+        (take-thing! backpack)
+        "You now have a backpack."))
+
+put
+  (if (have-thing? backpack)
+      (begin
+        (drop-thing! backpack)
+        (if (have-thing? flashdrive)
+        (begin (drop-thing! flashdrive)
+               "You have dropped the backpack and the flashdrive.")
+        "You have dropped the backpack"))
+      "You don't have a backpack.")
 
 ---cactus---
 get
@@ -162,7 +198,7 @@ get
 
 ---Rekhi-112---
 "You're standing in Rekhi 112."
-[]
+[backpack]
 
 out
  Hallway-level-1-1
@@ -265,42 +301,119 @@ back
 "You're in the stairway. You know how to climb stairs, right?"
 []
 
+up
+ Stairway-level-2-1
+
 out
  Hallway-level-1-4
 
----house-front---
-"You are standing in front of a house."
-[door]
+---Stairway-level-2-1---
+"You're in the second level of the stairway. What heights?"
+[]
 
-in 
-  (if (eq? (thing-state door) 'open)
-      room
-      "The door is not open.")
+up
+ Stairway-level-3-1
 
-south
-  Rekhi-112
-
-
----desert---
-"You're in a desert. There is nothing for miles around."
-[cactus, key]
-
-north
-  Rekhi-112
-
-south
-  desert
-
-east
-  desert
-
-west
-  desert
-
-
----room---
-"You're in the house."
-[trophy]
+down
+ Stairway-level-1-1
 
 out
-  house-front
+ Hallway-level-2-1
+
+---Stairway-level-3-1---
+"This is the top of the building. Unless you count the roof. There's always the roof"
+[]
+
+down
+ Stairway-level-2-1
+
+out
+ Hallway-level-3-1
+
+---Hallway-level-2-1---
+"You're in the hallway, looking at the Rekhi lounge."
+[]
+
+left
+ Hallway-level-2-2
+
+right
+ Hallway-level-2-2
+
+back
+ Hallway-level-2-3
+
+---Hallway-level-2-2---
+"You are stairing at the door to the lair of our great and powerful ruler, Cowboy Ureel"
+[]
+
+in
+ Leo-Office
+
+left
+ Hallway-level-2-1
+
+right
+ Hallway-level-2-1
+
+---Hallway-level-2-3---
+"You're in the hallway. Rekhi 212 is in front of you. Maybe you should go in?"
+[]
+
+in
+ Rekhi-212
+
+left
+ Hallway-level-2-4
+
+right
+ Hallway-level-2-1
+
+---Rekhi-212---
+"C.K. is here. By disturbing his peace you get zero point."
+[]
+
+out
+ Hallway-level-2-3
+
+---Hallway-level-2-4---
+"You're in the hallway, outside the old CS Office. It's dark. The hair on the back of your neck stands on end. It's dangerous here."
+[]
+
+back
+ Hallway-level-2-3
+
+---Leo-Office---
+"This is the office of the great and powerful OZ. Oh wait, wrong world."
+[flashdrive]
+
+out
+ Hallway-level-2-2
+
+cry
+ (begin
+   (take-thing! good-cry-in-Leos-office)
+   "You are crying in Leo's office. Pull yourself together.")
+
+---Hallway-level-3-1---
+"\"Welcome to the third floor! Women's shoes and fine clothing!\" says a voice."
+[]
+
+left
+ Hallway-level-3-1
+
+right
+ Hallway-level-3-1
+
+back
+ Hallway-level-3-2
+
+---Hallway-level-3-2---
+"Where does the hallway go? Shall we play a game and find out?"
+[]
+
+forward
+ Hallway-level-3-2
+
+back
+ Hallway-level-3-2
