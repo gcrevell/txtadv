@@ -11,15 +11,21 @@
          save-game
          load-game
          show-help
+         current-place
+         place-desc
 
          have-thing?
          take-thing!
          drop-thing!
          thing-state
          set-thing-state!
+         turn-number
           
          (except-out (all-from-out racket) #%module-begin)
          (rename-out [module-begin #%module-begin]))
+
+(define turn-number 0)
+(define last-turn 0)
 
 ;; ============================================================
 ;; Overall module:
@@ -51,6 +57,8 @@
 (struct place (desc         ; string
                [things #:mutable] ; list of things
                actions))    ; list of verb--thunk pairs
+(struct professor (name
+                   [places #:mutable]))
 
 ;; Tables mapping names<->things for save and load
 (define names (make-hash))
@@ -184,12 +192,18 @@
   (printf "~a\n" (place-desc current-place))
   ;(displayln (place-desc current-place))
   (cond [(string=? (place-desc current-place) "You died") (exit)])
+  (cond [(string=? (place-desc current-place) "C.K. is here. By disturbing his peace you get zero point.") ])
   (for-each (lambda (thing)
               (printf "There is a ~a here.\n" (thing-name thing)))
             (place-things current-place)))
 
 ;; Get and handle a command:
 (define (do-verb)
+  (set! turn-number (+ turn-number 1))
+  (cond
+    [(or (string=? (place-desc current-place) "Welcome to the lounge. A TA is trying to get the fireplace to work") (string=? (place-desc current-place) "You're in Rekhi 113. There's a TA here droning on."))
+     (cond ((= turn-number (+ last-turn 3)) (printf "The TA ate your head off. You died.\n") (exit)))]
+    [#t (set! last-turn turn-number)])
   (printf "> ")
   (flush-output)
   (let* ([line (read-line)]

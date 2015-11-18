@@ -45,6 +45,9 @@ get _, grab _, take _
 put _, drop _, leave _
  "drop"
 
+login _
+ "login"
+
 open _, unlock _
  "open"
 
@@ -77,6 +80,12 @@ exit
 die
  "die"
 
+sit _
+ "sit"
+
+stand _
+ "stand up"
+
 ===EVERYWHERE===
 
 quit 
@@ -108,10 +117,31 @@ cry
 die
  (begin
    (displayln "exiting")
+   ;;(displayln (place-desc current-place))
    (exit))
 
 
 ===THINGS===
+
+---chair---
+
+sit
+ (if (have-thing? chair)
+       (printf "You're already sitting in the chair")
+       (begin (take-thing! chair) (printf "You sit down")))
+
+stand
+ (if (have-thing? chair)
+     (begin (drop-thing! chair) (printf "You stand up"))
+     ("You're already standing!"))
+
+---computer---
+
+login
+ (if (have-thing? flashdrive)
+     (begin (println "You have successfully logged in! You can now play The Oregon Trail for all eternity!")
+            (exit))
+     "You need a key to log in. It looks something like a thumb drive")
 
 ---flashdrive---
 
@@ -150,55 +180,12 @@ put
         "You have dropped the backpack"))
       "You don't have a backpack.")
 
----cactus---
-get
-  "Ouch!"
-
----door---
-open 
-  (if (have-thing? key)
-      (begin
-        (set-thing-state! door 'open)
-        "The door is now unlocked and open.")
-      "The door is locked.")
-
-close
-  (begin
-   (set-thing-state! door #f)
-   "The door is now closed.")
-
-knock
-  "No one is home."
-
----key---
-
-get
-  (if (have-thing? key)
-      "You already have the key."
-      (begin
-        (take-thing! key)
-        "You now have the key."))
-
-put
-  (if (have-thing? key)
-      (begin
-        (drop-thing! key)
-        "You have dropped the key.")
-      "You don't have the key.")
-
----trophy---
-
-get
-  (begin
-   (take-thing! trophy)
-   "You win!")
-
 
 ===PLACES===
 
 ---Rekhi-112---
 "You're standing in Rekhi 112."
-[backpack]
+[backpack, computer]
 
 out
  Hallway-level-1-1
@@ -248,7 +235,7 @@ right
  Hallway-level-1-2
 
 ---Rekhi-113---
-"You're in Rekhi 113"
+"You're in Rekhi 113. There's a TA here droning on."
 []
 
 out
@@ -262,7 +249,7 @@ out
  Hallway-level-1-2
 
 ---Hallway-level-1-2---
-"You're standing in the middle of the hallway. The CSLC is in front of you. Why don't you go in?"
+"You're standing in the middle of the hallway. Room 113 is behind you and the CSLC is in front of you. Why don't you go in?"
 []
 
 in
@@ -270,6 +257,9 @@ in
 
 right
  Hallway-level-1-1
+
+back
+ Rekhi-113
 
 ---Hallway-level-1-3---
 "You're in the hallway, facing the room 101. The floor is sticky."
@@ -343,6 +333,19 @@ right
 back
  Hallway-level-2-3
 
+in
+ Stairway-level-2-1
+
+forward
+ Rekhi-lounge
+
+---Rekhi-lounge---
+"Welcome to the lounge. A TA is trying to get the fireplace to work"
+[chair]
+
+out
+ Hallway-level-2-1
+
 ---Hallway-level-2-2---
 "You are stairing at the door to the lair of our great and powerful ruler, Cowboy Ureel"
 []
@@ -407,6 +410,9 @@ right
 
 back
  Hallway-level-3-2
+
+in
+ Stairway-level-3-1
 
 ---Hallway-level-3-2---
 "Where does the hallway go? Shall we play a game and find out?"
