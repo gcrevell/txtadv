@@ -271,6 +271,9 @@ in
 left
  Hallway-level-1-4
 
+back
+ Hallway-level-1-1
+
 ---Hallway-level-1-4---
 "You're in the hallway, next to the stairs and exit. It's cold. It's always cold"
 []
